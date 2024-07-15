@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:auth_server/config/set_up.dart';
-import 'package:auth_server/middlewares/middlewares.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -14,7 +12,7 @@ final _privateRouter = Router();
 
 // Handler corrispondenti.
 final _publicHandler = Pipeline().addHandler(_publicRouter.call);
-final _privateHandler = Pipeline().addMiddleware(checkSessionId()).addHandler(_privateRouter.call);
+final _privateHandler = Pipeline().addHandler(_privateRouter.call);
 
 // Router principale.
 final _mainRouter = Router()
@@ -22,9 +20,6 @@ final _mainRouter = Router()
   ..mount("/protected", _privateHandler);
 
 void main(List<String> args) async {
-  // Chiamata alla funzione di configurazione.
-  await setUp();
-
   final ip = InternetAddress.anyIPv4;
 
   final handler = Pipeline().addMiddleware(logRequests()).addHandler(_mainRouter.call);
