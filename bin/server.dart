@@ -2,18 +2,15 @@ import 'dart:io';
 
 import 'package:auth_server/config/set_up.dart';
 import 'package:auth_server/middlewares/middlewares.dart';
-import 'package:auth_server/routes/routes.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 // Router pubblico, accessibile senza autorizzazione.
-final _publicRouter = Router()
-  ..post("/register", register)
-  ..post("/login", login);
+final _publicRouter = Router();
 
 // Router privato.
-final _privateRouter = Router()..get("/<message>", echo);
+final _privateRouter = Router();
 
 // Handler corrispondenti.
 final _publicHandler = Pipeline().addHandler(_publicRouter.call);
