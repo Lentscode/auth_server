@@ -7,13 +7,13 @@ Future<Response> login(Request req) async {
   final email = data["email"];
   final password = data["password"];
 
-  // Accediamo all'oggetto [Auth].
-  final auth = getIt.get<Auth>();
-
   // Controlliamo che non siano nulli.
   if (email == null || password == null) {
     return Response.badRequest(body: "Email or password missing");
   }
+
+  // Accediamo all'oggetto [Auth].
+  final auth = getIt.get<Auth>();
 
   // Cerchiamo un utente con la stessa email e la stessa password.
   final user = await auth.loginWithEmailAndPassword(email, password);
