@@ -7,13 +7,13 @@ Future<Response> register(Request req) async {
   final email = data["email"];
   final password = data["password"];
 
-  // Accediamo all'oggetto [Auth].
-  final auth = getIt.get<Auth>();
-
   // Controlliamo che non siano nulli.
   if (email == null || password == null) {
     return Response.badRequest(body: "Email or password missing");
   }
+
+  // Accediamo all'oggetto [Auth].
+  final auth = getIt.get<Auth>();
 
   // Controlliamo che l'email non sia già stata usata.
   final userExists = await auth.getUserByEmail(email) != null;
