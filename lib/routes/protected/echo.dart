@@ -4,7 +4,9 @@ part of "../routes.dart";
 Response echo(Request req) {
   final message = req.params["message"];
 
-  print("Message: $message");
+  final id = req.context["id"];
+
+  print("Message: $message; Id: $id");
 
   return Response.ok(message);
 }
