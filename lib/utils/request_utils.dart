@@ -35,4 +35,10 @@ class RequestUtils {
 
     return sessionId;
   }
+
+  static Future<(String? email, String? password)> getEmailAndPasswordFromRequest(Request req) async {
+    final payload = await getPayload(req);
+
+    return (payload["email"]as String?, payload["password"] as String?);
+  }
 }

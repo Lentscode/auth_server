@@ -3,9 +3,7 @@ part of "../routes.dart";
 // Handler per eseguire la registrazione.
 Future<Response> register(Request req) async {
   // Accediamo ai dati mandati tramite la richiesta.
-  final data = await RequestUtils.getPayload(req);
-  final email = data["email"];
-  final password = data["password"];
+  final (email, password) = await RequestUtils.getEmailAndPasswordFromRequest(req);
 
   // Controlliamo che non siano nulli.
   if (email == null || password == null) {
