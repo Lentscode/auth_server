@@ -7,11 +7,12 @@ import 'package:mongo_dart/mongo_dart.dart';
 final getIt = GetIt.instance;
 
 // Funzione da chiamare per configurare la connessione al database.
-Future<void> setUp() async {
+Future<void> setUp([bool testing = false]) async {
   // Viene recuperata la chiave per accedere a MongoDB Atlas e viene stabilita
   // la connessione col DB.
-  final env = DotEnv()..load();
-  final db = await Db.create(env["MONGO_CREDENTIALS"] ?? "");
+  final env = DotEnv(includePlatformEnvironment: true)..load();
+  final credentials = testing ? env["MONGO_CREDENTIALS_TEST"] : env["MONGO_CREDENTIALS"];
+  final db = await Db.create(credentials ?? "");
   await db.open();
 
   // Creata l'istanza della classe contenente i metodi per autenticazione
