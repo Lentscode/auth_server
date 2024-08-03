@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:auth_server/config/set_up.dart' as a;
-import 'package:auth_server/utils/utils.dart';
 import 'package:dotenv/dotenv.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
