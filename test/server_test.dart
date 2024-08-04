@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:auth_server/utils/utils.dart';
 import 'package:dotenv/dotenv.dart';
 import 'package:http/http.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -12,10 +14,10 @@ void main() {
   late String credentials;
   late String userId;
 
-  setUp(() async {
+  setUpAll(() async {
     final env = DotEnv()..load();
     credentials = env["MONGO_CREDENTIALS_TEST"] ?? "";
-    print(credentials);
+
     p = await Process.start(
       'dart',
       ['run', 'bin/server.dart', '--test'],
@@ -25,7 +27,14 @@ void main() {
     await p.stdout.first;
   });
 
-  tearDown(() async => p.kill());
+  tearDownAll(() async {
+    final db = await Db.create(credentials);
+    await db.open();
+    final auth = Auth(db.collection("users"));
+
+    await auth.deleteUserById(userId);
+    return p.kill();
+  });
 
   test('Registration', () async {
     final email = "email@example.com";
