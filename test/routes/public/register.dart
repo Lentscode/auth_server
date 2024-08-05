@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 import '../../shared.dart';
 
-void mainFun() {
+void main() {
   group('Registration', () {
     test('Success', () async {
       final email = "email@example.com";

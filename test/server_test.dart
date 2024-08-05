@@ -5,9 +5,8 @@ import 'package:dotenv/dotenv.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:test/test.dart';
 
-import './routes/public/register_test.dart' as register;
-import './routes/public/login_test.dart' as login;
-
+import 'routes/public/login.dart' as login;
+import 'routes/public/register.dart' as register;
 import 'shared.dart';
 
 void main() {
@@ -36,6 +35,6 @@ void main() {
     return p.kill();
   });
 
-  register.mainFun();
-  login.mainFun();
+  register.main();
+  login.main();
 }
