@@ -38,7 +38,7 @@ class User {
         hashedPassword = json["password"],
         salt = json["salt"],
         sessionId = json["sessionId"],
-        expirationDate = json["expirationTime"];
+        expirationDate = json["expirationDate"];
 
   // Metodo per creare un User da un altro User.
   User copyWith(
