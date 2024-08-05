@@ -85,6 +85,8 @@ class Auth {
     return user;
   }
 
+  Future<void> deleteUserById(String id) => userCollection.deleteOne(where.id(ObjectId.parse(id)));
+
   // Metodo per creare un cookie contenente il [sessionId].
   String createCookie(String sessionId, [DateTime? expirationDate]) {
     final cookie = StringBuffer()
