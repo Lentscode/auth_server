@@ -1,18 +1,18 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:auth_server/utils/utils.dart';
 import 'package:dotenv/dotenv.dart';
-import 'package:http/http.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:test/test.dart';
 
+import './routes/public/register_test.dart' as register;
+import './routes/public/login_test.dart' as login;
+
+import 'shared.dart';
+
 void main() {
-  final port = '8080';
-  final host = 'http://0.0.0.0:$port';
   late Process p;
   late String credentials;
-  late String userId;
 
   setUpAll(() async {
     final env = DotEnv()..load();
@@ -36,22 +36,6 @@ void main() {
     return p.kill();
   });
 
-  test('Registration', () async {
-    final email = "email@example.com";
-    final password = "password";
-
-    final response = await post(
-      Uri.parse('$host/public/register'),
-      body: jsonEncode({"email": email, "password": password}),
-    );
-
-    expect(response.statusCode, 200);
-
-    final body = jsonDecode(response.body);
-
-    expect(body["email"], email);
-    expect(body["_id"], isA<String>());
-
-    userId = body["_id"];
-  });
+  register.mainFun();
+  login.mainFun();
 }
