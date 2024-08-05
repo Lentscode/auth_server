@@ -58,7 +58,7 @@ class Auth {
   Future<User> createSessionIdOfUser(User user, [DateTime? expirationDate]) async {
     final newSessionId = sessionId();
 
-    final userUpdated = user.copyWith(sessionId: newSessionId);
+    final userUpdated = user.copyWith(sessionId: newSessionId, expirationDate: expirationDate);
 
     await userCollection.updateOne(
       where.id(user.id),
